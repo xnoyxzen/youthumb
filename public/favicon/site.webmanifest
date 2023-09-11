@@ -1,7 +1,7 @@
 {
-  "name": "YouTube Thumbnail image view and Download : Grab YT Thumbnails",
-  "short_name": "YT Downloader",
-  "description": "Download youtube thumbnail image, Grab youtube video thumbnails images easy way get Thumbnail Image and save yt thumbnail images with our free online thumbnail downloader tool you can select List of sizes and qualities 4k, HQ, HD,SD, MQ, The perfect size is 1280 X 720 pixels. generate YouTube video thumbnail Start download YT image it in just a few seconds for free..",
+  "name": "YouTube Thumbnail Grabber view and Download : Grab All Youtube Thumbnails Size",
+  "short_name": "YouTube Thumbnail Grabber view and Download : Grab All Youtube Thumbnails Size",
+  "description": "Download youtube thumbnail image and Grab youtube video thumbnails images easy way get Thumbnail Image and save youtube thumbnail images with our free online thumbnail downloader tool",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
