@@ -10,7 +10,7 @@ const Index = () => {
 
     if (match && match[1].length === 11) {
       const videoURL = match[1];
-      const thumbnailBaseUrl = "http://img.youtube.com/vi/";
+      const thumbnailBaseUrl = "https://img.youtube.com/vi/";
 
       const options = [
         { resolution: "HD (1280x720)", code: "maxresdefault" },
@@ -33,7 +33,21 @@ const Index = () => {
   };
 
   const downloadImage = (url) => {
-    window.open(url, "_blank");
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const downloadUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = downloadUrl;
+        a.download = "thumbnail.jpg";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(downloadUrl);
+      })
+      .catch((error) => {
+        console.error("Error downloading image:", error);
+      });
   };
 
   return (
@@ -42,25 +56,24 @@ const Index = () => {
         <h1 className="text-3xl font-bold mb-2">Youtube Thumbnail Grabber</h1>
         <p className="text-gray-600">
           Get high-quality thumbnail images for free with our Image Grabber tool.
-          Easily download thumbnail images and photos of various qualities using
-          this application.
+          Easily download them with the click of a button.
         </p>
       </header>
-      <div className="text-center">
+      <div className="mb-4">
         <input
           type="text"
-          className="w-full md:w-1/2 px-4 py-2 border rounded"
-          placeholder="Enter YouTube URL"
+          className="border border-gray-300 rounded px-4 py-2 w-full"
+          placeholder="Enter YouTube video URL"
           value={videoURL}
           onChange={(e) => setVideoURL(e.target.value)}
         />
-        <button
-          className="btn-blue mt-2"
-          onClick={() => getYouTubeThumbnail(videoURL)}
-        >
-          Get Thumbnails images
-        </button>
       </div>
+      <button
+        className="btn-blue"
+        onClick={() => getYouTubeThumbnail(videoURL)}
+      >
+        Get Thumbnails images
+      </button>
       {thumbnailOptions.length > 0 && (
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4">Thumbnail Options</h2>
