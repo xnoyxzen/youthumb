@@ -5,8 +5,8 @@ const Index = () => {
   const [thumbnailOptions, setThumbnailOptions] = useState([]);
 
   const getYouTubeThumbnail = (url) => {
-    let regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
-    let match = url.match(regExp);
+    const regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
 
     if (match && match[1].length === 11) {
       const videoURL = match[1];
@@ -32,24 +32,22 @@ const Index = () => {
     }
   };
 
-  const downloadImage = (url) => {
-    fetch(url)
-      .then((response) => response.blob())
-      .then((blob) => {
-        const downloadUrl = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = downloadUrl;
-        a.download = "thumbnail.jpg";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(downloadUrl);
-      })
-      .catch((error) => {
-        console.error("Error downloading image:", error);
-      });
-  };
-
+ const downloadImage = async (url) => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const downloadUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = downloadUrl;
+    a.download = "thumbnail.jpg";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(downloadUrl);
+  } catch (error) {
+    console.error("Error downloading image:", error);
+  }
+};
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-8">
