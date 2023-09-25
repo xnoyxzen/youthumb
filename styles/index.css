@@ -5,7 +5,15 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f7fafc;
 }
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
 
+.button-container button {
+  margin: 0 5px;
+}
 /* Center align the content in the container */
 .container {
   display: flex;

@@ -60,29 +60,31 @@ const Index = () => {
         </button>
       </div>
       {thumbnailOptions.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Thumbnail Options</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {thumbnailOptions.map((option, index) => (
-              <div key={index} className="thumbnail-option">
-                <img src={option.url} alt={`Thumbnail ${index + 1}`} />
-                <button
-                  className="btn-blue mt-2"
-                  onClick={() => copy(option.url)}
-                >
-                  Copy Image URL
-                </button>
-                <button
-                  className="btn-blue mt-2"
-                  onClick={() => openInDefaultBrowser(option.url)}
-                >
-                  Open in Browser
-                </button>
-              </div>
-            ))}
+  <div className="mt-8">
+    <h2 className="text-xl font-semibold mb-4">Thumbnail Options</h2>
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {thumbnailOptions.map((option, index) => (
+        <div key={index} className="thumbnail-option">
+          <img src={option.url} alt={`Thumbnail ${index + 1}`} />
+          <div className="button-container">
+            <button
+              className="btn-blue"
+              onClick={() => copy(option.url)}
+            >
+              Copy Image URL
+            </button>
+            <button
+              className="btn-blue"
+              onClick={() => openInDefaultBrowser(option.url)}
+            >
+              Open in Browser
+            </button>
           </div>
         </div>
-      )}
+      ))}
+    </div>
+  </div>
+)}
       <div>
       </div>
     </div>
