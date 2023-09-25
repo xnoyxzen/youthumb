@@ -1,16 +1,17 @@
 import { useState } from "react";
+import copy from "copy-to-clipboard";
 
 const Index = () => {
   const [videoURL, setVideoURL] = useState("");
   const [thumbnailOptions, setThumbnailOptions] = useState([]);
 
   const getYouTubeThumbnail = (url) => {
-    const regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
+    let regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
+    let match = url.match(regExp);
 
     if (match && match[1].length === 11) {
       const videoURL = match[1];
-      const thumbnailBaseUrl = "https://img.youtube.com/vi/";
+      const thumbnailBaseUrl = "http://img.youtube.com/vi/";
 
       const options = [
         { resolution: "HD (1280x720)", code: "maxresdefault" },
@@ -32,46 +33,32 @@ const Index = () => {
     }
   };
 
- const downloadImage = async (url) => {
-  try {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const downloadUrl = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = downloadUrl;
-    a.download = "thumbnail.jpg";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(downloadUrl);
-  } catch (error) {
-    console.error("Error downloading image:", error);
-  }
-};
+  const openInDefaultBrowser = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">Youtube Thumbnail Grabber</h1>
         <p className="text-gray-600">
-          Get high-quality thumbnail images for free with our Image Grabber tool.
-          Easily download them with the click of a button.
+          Get high-quality thumbnail images for free with our Image Grabber tool. Easily download YouTube thumbnail images and photos of various qualities using this application. Simply paste the video's thumbnail URL into the input box below and click 'Get Youtube Thumbnail'.
         </p>
       </header>
-      <div className="mb-4">
+      <div className="text-center">
         <input
           type="text"
-          className="border border-gray-300 rounded px-4 py-2 w-full"
-          placeholder="Enter YouTube video URL"
+          className="w-full md:w-1/2 px-4 py-2 border rounded"
+          placeholder="Enter YouTube URL"
           value={videoURL}
           onChange={(e) => setVideoURL(e.target.value)}
         />
+        <button
+          className="btn-blue mt-2"
+          onClick={() => getYouTubeThumbnail(videoURL)}
+        >
+          Get Thumbnails images
+        </button>
       </div>
-      <button
-        className="btn-blue"
-        onClick={() => getYouTubeThumbnail(videoURL)}
-      >
-        Get Thumbnails images
-      </button>
       {thumbnailOptions.length > 0 && (
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4">Thumbnail Options</h2>
@@ -81,17 +68,25 @@ const Index = () => {
                 <img src={option.url} alt={`Thumbnail ${index + 1}`} />
                 <button
                   className="btn-blue mt-2"
-                  onClick={() => downloadImage(option.url)}
+                  onClick={() => copy(option.url)}
                 >
-                  Download Image
+                  Copy Image URL
+                </button>
+                <button
+                  className="btn-blue mt-2"
+                  onClick={() => openInDefaultBrowser(option.url)}
+                >
+                  Open in Browser
                 </button>
               </div>
             ))}
           </div>
         </div>
       )}
+      <div>
+      </div>
     </div>
   );
 };
 
-export default Index;
+export default Index; 
