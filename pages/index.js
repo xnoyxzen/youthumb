@@ -41,14 +41,14 @@ const Index = () => {
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-8">
         <p className="text-gray-600">
-          Get high-quality thumbnail images for free with our Image Grabber tool. Easily download YouTube thumbnail images and photos of various qualities using this application. Simply paste the video's thumbnail URL into the input box below and click 'Get Youtube Thumbnail'.
+          Get high-quality thumbnail images for free with our Image Grabber tool. Easily download  thumbnail images and photos of various qualities using this application. Simply paste the video's thumbnail URL into the input box below and click 'Get Thumbnail'.
         </p>
       </header>
       <div className="text-center">
         <input
           type="text"
           className="w-full md:w-1/2 px-4 py-2 border rounded"
-          placeholder="Enter YouTube URL"
+          placeholder="Enter Video URL"
           value={videoURL}
           onChange={(e) => setVideoURL(e.target.value)}
         />
